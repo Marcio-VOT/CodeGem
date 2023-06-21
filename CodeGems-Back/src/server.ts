@@ -4,6 +4,7 @@ const port = process.env.PORT || 5000
 
 init().then(() => {
   app.listen(port, () => {
+    console.log(process.env.TEST)
     console.log(`Server is listening on port ${port} 👌.`)
   })
 })

@@ -5,6 +5,9 @@ import { connectDb, disconnectDB } from './config/prisma'
 import router from './routers/routers'
 import cookieParser from 'cookie-parser'
 import { handleApplicationErrors } from './middlewares/error-handling-middleware'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 
