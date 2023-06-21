@@ -1,0 +1,98 @@
+/** @type {import('tailwindcss').Config} */
+const { nextui } = require('@nextui-org/react')
+module.exports = {
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: 'var(--font-roboto)',
+        title: 'var(--font-teko)',
+      },
+      colors: {
+        white: {
+          100: '#f4f9fb',
+          200: '#e9f3f8',
+          300: '#ddecf4',
+          400: '#d2e6f1',
+          500: '#c7e0ed',
+          600: '#9fb3be',
+          700: '#77868e',
+          800: '#505a5f',
+          900: '#282d2f',
+        },
+
+        mineral: {
+          diamond: '#5030B7',
+          gold: '#FFD700',
+          silver: '#C0C0C0',
+          bronze: '#CD7F32',
+          plat: '#02D1C9 ',
+          gray: {
+            dark: {
+              100: '#dbdbdb',
+              200: '#b8b8b8',
+              300: '#949494',
+              400: '#717171',
+              500: '#4d4d4d',
+              600: '#3e3e3e',
+              700: '#2e2e2e',
+              800: '#1f1f1f',
+              900: '#0f0f0f',
+            },
+            light: {
+              100: '#e8e8e8',
+              200: '#d1d1d1',
+              300: '#bababa',
+              400: '#a3a3a3',
+              500: '#8c8c8c',
+              600: '#707070',
+              700: '#545454',
+              800: '#383838',
+              900: '#1c1c1c',
+            },
+          },
+        },
+        navbar: {
+          100: '#d1d1d1',
+          200: '#a3a3a4',
+          300: '#747476',
+          400: '#464649',
+          500: '#18181b',
+          600: '#131316',
+          700: '#0e0e10',
+          800: '#0a0a0b',
+          900: '#050505',
+        },
+        search: {
+          100: '#d4d6da',
+          200: '#a9adb5',
+          300: '#7f848f',
+          400: '#545b6a',
+          500: '#293245',
+          600: '#212837',
+          700: '#191e29',
+          800: '#10141c',
+          900: '#080a0e',
+          border: {
+            100: '#d0d1d3',
+            200: '#a1a3a7',
+            300: '#73767c',
+            400: '#444850',
+            500: '#151a24',
+            600: '#11151d',
+            700: '#0d1016',
+            800: '#080a0e',
+            900: '#040507',
+          },
+        },
+      },
+    },
+  },
+  darkMode: 'class',
+  plugins: [nextui()],
+}

@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(255)
+  email     String     @db.VarChar(255)
+  imageUrl  String?
+  userType  UserType
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @updatedAt
+  PlayList  PlayList[]
+  Grades    Grades[]
+
+  @@unique([email, userType])
+}
+
+enum UserType {
+  GOOGLE
+  GITHUB
+}
+
+model PlayList {
+  id          Int           @id @default(autoincrement())
+  thumbnail   String        @db.VarChar(255)
+  title       String        @db.VarChar(255)
+  link        String
+  grade       Float         @default(0)
+  level       LeveLs
+  userId      Int
+  User        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Grades      Grades[]
+  PlayLstTags PlayLstTags[]
+
+  @@index([id, grade])
+}
+
+model PlayLstTags {
+  id         Int      @id @default(autoincrement())
+  tagId      Int
+  playlistId Int
+  Tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  PlayList   PlayList @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id          Int           @id @default(autoincrement())
+  tag         String        @unique @db.VarChar(50)
+  PlayLstTags PlayLstTags[]
+}
+
+model Grades {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  playlistId Int
+  grade      Int
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  PlayList   PlayList @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+}
+
+enum LeveLs {
+  JUNIOR
+  PLENO
+  SENIOR
+}
