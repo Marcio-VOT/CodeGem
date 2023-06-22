@@ -1,3 +1,8 @@
+import Image from 'next/image'
+import { FaGithubAlt } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
+import { MdFeaturedPlayList, MdPlaylistAdd, MdSettings } from 'react-icons/md'
+import { signIn, signOut } from 'next-auth/react'
 import {
   Card,
   CardHeader,
@@ -7,11 +12,6 @@ import {
   Spacer,
   CardFooter,
 } from '@nextui-org/react'
-import Image from 'next/image'
-import { FaGithubAlt } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
-import { MdFeaturedPlayList, MdPlaylistAdd, MdSettings } from 'react-icons/md'
-import { signIn, signOut } from 'next-auth/react'
 
 export default function Dropdown({
   userIcon,
@@ -52,7 +52,7 @@ export default function Dropdown({
             variant="ghost"
             color="primary"
             isDisabled={!loginStatus}
-            startIcon={<MdFeaturedPlayList size={19} />}
+            startContent={<MdFeaturedPlayList size={19} />}
           >
             Your Play Lists
           </Button>
@@ -62,7 +62,7 @@ export default function Dropdown({
             onPress={() => console.log('a')}
             variant="ghost"
             color="success"
-            startIcon={<MdPlaylistAdd size={25} />}
+            startContent={<MdPlaylistAdd size={25} />}
           >
             New Play List
           </Button>
@@ -72,7 +72,7 @@ export default function Dropdown({
             onPress={() => console.log('a')}
             variant="ghost"
             color="default"
-            startIcon={<MdSettings size={20} />}
+            startContent={<MdSettings size={20} />}
           >
             Settings
           </Button>
@@ -94,7 +94,7 @@ export default function Dropdown({
               <Spacer x={1} />
               <Button
                 color="primary"
-                startIcon={<FcGoogle />}
+                startContent={<FcGoogle />}
                 onPress={() => signIn('google', { redirect: false })}
                 className="w-full bg-white-100 font-bold text-[#4285F4]"
               >
@@ -103,7 +103,7 @@ export default function Dropdown({
               </Button>
               <Spacer x={1} />
               <Button
-                startIcon={<FaGithubAlt />}
+                startContent={<FaGithubAlt />}
                 onPress={() => signIn('github', { redirect: false })}
                 className="w-full"
               >
