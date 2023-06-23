@@ -5,7 +5,7 @@ type ApplicationInvalidateDataError = ApplicationError & {
 }
 
 export function invalidDataError(
-  details: string[],
+  details: string[] = [],
 ): ApplicationInvalidateDataError {
   return {
     name: 'InvalidDataError',

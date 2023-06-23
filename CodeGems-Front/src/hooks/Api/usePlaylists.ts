@@ -7,11 +7,16 @@ export default function usePlaylists({
   level,
   tags,
   userId,
-}: playlistFilterInputs): {
+}: playlistFilterInputs = {}): {
   playlists: Playlist[]
   playlistsError: Error | null
+  playlistLoading: boolean
 } {
-  const { data: playlists, error: playlistsError } = useAsync(
+  const {
+    data: playlists,
+    error: playlistsError,
+    loading: playlistLoading,
+  } = useAsync(
     useCallback(
       () => playlist.getPlaylists({ level, tags, userId }),
       [level, tags, userId],
@@ -22,5 +27,6 @@ export default function usePlaylists({
   return {
     playlists,
     playlistsError,
+    playlistLoading,
   }
 }
