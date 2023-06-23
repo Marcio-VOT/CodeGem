@@ -3,7 +3,7 @@ import { UserInterface } from './UserInterface/UserInterface'
 export function NavBar() {
   return (
     <>
-      <div className="flex h-16 items-center justify-between bg-search-800  px-4">
+      <div className="flex h-14 items-center justify-between bg-search-800  px-4">
         {/* interactive logo */}
         <div className="hover:fill-white hover:text-white flex min-w-[200px] cursor-pointer fill-gray-200 font-title text-3xl">
           <Link href={'/'}>{`</>CodeGem`}</Link>

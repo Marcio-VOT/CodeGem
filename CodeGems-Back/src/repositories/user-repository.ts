@@ -6,14 +6,12 @@ export async function getUserById(userId: number): Promise<
     userTags: string[]
   }
 > {
-  const {
-    id,
-    name,
-    imageUrl,
-    PlayList: playlistData,
-  } = await prisma.user.findUniqueOrThrow({
+  const data = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      imageUrl: true,
       PlayList: {
         select: {
           PlayLstTags: {
@@ -29,6 +27,10 @@ export async function getUserById(userId: number): Promise<
       },
     },
   })
+  console.log(data)
+
+  const { id, name, imageUrl, PlayList: playlistData } = data
+
   const tags = new Set()
 
   playlistData.map((playlist) =>

@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-br" className=" dark">
       <body
-        className={`${roboto.variable} ${teko.variable} h-fit max-h-fit min-h-screen bg-white-500 font-sans text-gray-200 `}
+        className={`${roboto.variable} ${teko.variable} h-fit max-h-fit min-h-screen bg-[url(../../public/layered-waves-haikei.svg)] bg-cover font-sans text-gray-200 `}
       >
         <Providers>
           <NavBar />

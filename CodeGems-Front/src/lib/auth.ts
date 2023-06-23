@@ -20,6 +20,11 @@ export const authConfig: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    error: '/',
+    signIn: '/',
+    signOut: '/',
+  },
   callbacks: {
     async signIn({ user, account }) {
       try {

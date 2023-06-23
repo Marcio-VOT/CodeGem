@@ -7,7 +7,7 @@ import {
   userData,
 } from '@/protocols'
 import authRepository from '@/repositories/authentication-repository'
-import * as playlistRepositories from 'repositories/playlist-repository'
+import * as playlistRepositories from '@/repositories/playlist-repository'
 
 export async function listPlaylists({
   level,

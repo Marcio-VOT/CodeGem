@@ -37,7 +37,7 @@ model PlayList {
   grade       Float         @default(0)
   level       LeveLs
   userId      Int
-  User        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   Grades      Grades[]
   PlayLstTags PlayLstTags[]
 
