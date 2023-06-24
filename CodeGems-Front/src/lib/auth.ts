@@ -28,7 +28,7 @@ export const authConfig: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account }) {
       try {
-        await axios.post('http://localhost:4000/login', { user, account })
+        await axios.post(`${process.env.BACKEND_URL}/login`, { user, account })
       } catch (error) {
         return '/'
       }

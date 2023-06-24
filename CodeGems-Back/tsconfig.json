@@ -17,5 +17,5 @@
       }
     ]                                  /* Enable all strict type-checking options. */
   },
-  "include": ["src"]
+  "include": ["src", "prisma"]
 }

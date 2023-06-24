@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "build": "ttsc",
-    "start": "node dist/server.js",
+    "build": "ttsc -p tsconfig.build.json",
+    "start": "npm run migration:run && node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "lint": "eslint src --ext .ts --fix",
     "migration:generate": "prisma migrate dev",
