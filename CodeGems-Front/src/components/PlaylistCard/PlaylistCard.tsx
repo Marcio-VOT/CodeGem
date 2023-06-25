@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function PlaylistCard({ playlist }: { playlist: Playlist }) {
   return (
     <Link href={playlist.link}>
-      <div className="relative flex h-auto w-full rounded-xl bg-inherit pe-16 drop-shadow-sm hover:drop-shadow-lg  ">
+      <div className="relative flex h-auto w-full rounded-xl border-2 border-white-100 border-opacity-20 bg-inherit pe-16 drop-shadow-sm hover:drop-shadow-lg ">
         <Image
           className="h-auto w-full rounded-s-xl"
           src={playlist.thumbnail}

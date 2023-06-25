@@ -24,7 +24,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <Providers>
           <NavBar />
-          {children}
+          <main className="flex h-[100%] flex-wrap-reverse justify-center py-10 xl:px-12">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
