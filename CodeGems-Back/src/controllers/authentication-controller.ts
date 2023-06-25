@@ -16,6 +16,7 @@ export async function singInPost(
   } = req.body as UserData<UserInfo>
 
   try {
+    console.log(user, token, userType)
     await authenticationService.upsertUser({
       token,
       userType: userType.toUpperCase() as UserType,

@@ -21,30 +21,28 @@ services:
 
   next-app:
     container_name: next-app
-    build: ./CodeGems-Front
+    build:
+      context: ./CodeGems-Front
+      dockerfile: Dockerfile
+      args:
+        NEXTAUTH_URL: http://localhost:8080
+        NEXTAUTH_SECRET: senhamuitoforte
+        GOOGLE_CLIENT_SECRET: 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
+        GITHUB_CLIENT_SECRET: 88d9aebc697450622c51608634f2b79c47a03b3b
     restart: always
     ports:
       - 3000:3000
-    volumes:
-      - react-volume: ./
+
+  nginx:
+    container_name: nginx_app
+    build: ./nginx
+    ports:
+      - 8080:80
     depends_on:
       - postgres
       - node
-
-
-  # nginx:
-  #   container_name: nginx_app
-  #   build: ./nginx
-  #   ports:
-  #     - 8080:80
-  #   volumes:
-  #     - react-volume:/var/www/html
-  #   depends_on:
-  #     - postgres
-  #     - node
-  #     - react
+      - next-app
 
 volumes:
   postgres-volume:
-  react-volume:
 

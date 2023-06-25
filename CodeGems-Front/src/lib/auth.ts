@@ -27,10 +27,16 @@ export const authConfig: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account }) {
+      let a
       try {
-        await axios.post(`${process.env.BACKEND_URL}/login`, { user, account })
-      } catch (error) {
-        return '/'
+        console.log(process.env.BACKEND_URL)
+        a = await axios.post(`${process.env.BACKEND_URL}/login`, {
+          user,
+          account,
+        })
+      } catch (error: unknown) {
+        console.log(error, a)
+        return '/ndeu'
       }
       return true
     },
@@ -39,6 +45,7 @@ export const authConfig: NextAuthOptions = {
       user,
       token,
     }): Promise<Session & { accessToken: string }> {
+      console.log(process.env.BACKEND_URL)
       return { ...session, accessToken: token.accessToken as string }
     },
     async jwt({ token, account, profile }) {

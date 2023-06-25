@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  // output: 'standalone',
   env: {
     GITHUB_CLIENT_ID: 'ed2005b1d02b655bd369',
 
     GOOGLE_CLIENT_ID:
       '608225703044-pn94jenk7he8jn9r3l9akra29049q6h2.apps.googleusercontent.com',
 
-    BACKEND_URL: 'http://localhost:5000',
+    BACKEND_URL: 'http://localhost:8080/node',
   },
   images: {
     remotePatterns: [
