@@ -8,7 +8,9 @@ const nextConfig = {
     GOOGLE_CLIENT_ID:
       '608225703044-pn94jenk7he8jn9r3l9akra29049q6h2.apps.googleusercontent.com',
 
-    BACKEND_URL: 'http://localhost:8080/node',
+    // BACKEND_URL: 'http://localhost:8080/node',
+    // BACKEND_URL_NEXT_API: 'http://node:5000',
+    BACKEND_URL: 'http://localhost:5000',
   },
   images: {
     remotePatterns: [
