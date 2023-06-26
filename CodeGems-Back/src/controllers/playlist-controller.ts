@@ -14,7 +14,7 @@ export async function listPlaylists(
   res: Response,
   next: NextFunction,
 ) {
-  const searchData = req.body as playlistFilterInputs
+  const searchData = req.query as playlistFilterInputs
   try {
     const result = await playlistServices.listPlaylists(searchData)
     return res.status(httpStatus.OK).send(result)

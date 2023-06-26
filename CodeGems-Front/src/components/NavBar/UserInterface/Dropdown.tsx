@@ -26,7 +26,7 @@ export default function Dropdown({
 }) {
   return (
     <>
-      <Card className="absolute -right-4 top-full z-50 mt-2 w-screen border-2 border-white-100 border-opacity-5 drop-shadow-lg sm:right-0 sm:w-[22rem] sm:rounded-lg">
+      <Card className="absolute -right-4 top-full z-10 mt-2 w-screen border-2 border-white-100 border-opacity-5 drop-shadow-lg sm:right-0 sm:w-[22rem] sm:rounded-lg">
         {loginStatus && (
           <>
             <CardHeader className="flex gap-3">

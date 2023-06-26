@@ -31,7 +31,7 @@ export function UserInterface() {
 
   return (
     <div
-      className="relative h-10 w-10 rounded-full bg-gray-800 text-gray-200"
+      className="relative z-10 h-10 w-10 rounded-full bg-gray-800 text-gray-200"
       ref={dropdownRef}
     >
       {loginStatus ? (

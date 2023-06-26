@@ -27,7 +27,6 @@ export async function getUserById(userId: number): Promise<
       },
     },
   })
-  console.log(data)
 
   const { id, name, imageUrl, PlayList: playlistData } = data
 

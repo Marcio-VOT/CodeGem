@@ -6,5 +6,9 @@ export async function getPlaylists({
   tags,
   userId,
 }: playlistFilterInputs) {
-  return (await api.get('/playlist', { data: { level, tags, userId } })).data
+  return (
+    await api.get('/playlist', {
+      params: { level, tags, userId },
+    })
+  ).data
 }

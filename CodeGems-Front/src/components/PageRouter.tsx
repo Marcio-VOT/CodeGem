@@ -13,6 +13,8 @@ export function PageRouter({ total, page, setPage }: PageData) {
         onChange={(a) => setPage(a)}
         color="primary"
         size="xs"
+        isCompact
+        showControls
       />
     </div>
   )

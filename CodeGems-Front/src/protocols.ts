@@ -14,21 +14,6 @@ export type playlistFilterInputs = {
   level?: LeveLs
 }
 
-// export type Playlist = {
-//   id: number
-//   thumbnail: string
-//   link: string
-//   title: string
-//   grade: number
-//   level: LeveLs
-//   userId: 1
-//   PlayLstTags: string[]
-// }
-// type PlayLstTags = {
-//   id: number
-//   tagId: number
-//   playlistId: number
-// }
 type Tag = {
   id: number
   tag: string
@@ -53,3 +38,5 @@ export type Playlist = {
     Tag: Tag
   }[]
 }
+
+export type UserFromApi = Omit<User, 'email'> & { userTags: string[] }

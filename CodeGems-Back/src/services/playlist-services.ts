@@ -14,7 +14,11 @@ export async function listPlaylists({
   tags,
   userId,
 }: playlistFilterInputs) {
-  return await playlistRepositories.listPlaylists({ tags, level, userId })
+  return await playlistRepositories.listPlaylists({
+    tags,
+    level,
+    userId: Number(userId) || undefined,
+  })
 }
 
 export async function deletePlaylist({
