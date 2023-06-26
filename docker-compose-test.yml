@@ -5,17 +5,17 @@ services:
     ports:
       - 5433:5432
     env_file:
-      - 'a'
-    volumes:
-      - 's'
-  node: 
+      - CodeGems-Back/.env.test
+
+  node:
     container_name: node
-    build: ./
+    build: ./CodeGems-Back
     ports:
-      - '5000:5000'
+      - 5000:5000
     depends_on:
       - postgres
     env_file:
-      - a
+      - CodeGems-Back/.env.test
+
 
 
