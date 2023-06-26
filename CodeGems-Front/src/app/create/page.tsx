@@ -1,6 +1,5 @@
 'use client'
 import { useContext, useEffect, useState } from 'react'
-import { UserCard } from '../[userId]/page'
 import {
   Button,
   Chip,
@@ -21,6 +20,7 @@ import { UserContext } from '@/contexts/userContext'
 import { useRouter } from 'next/navigation'
 import useCreatePlaylist from '@/hooks/Api/useCreatePlaylist'
 import { LeveLs } from '@/protocols'
+import { UserCard } from '@/components/UserCard/UserCard'
 
 export default function Page() {
   const { userDataFromSession, status, session, token } =
