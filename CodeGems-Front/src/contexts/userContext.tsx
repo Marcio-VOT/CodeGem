@@ -16,9 +16,10 @@ export const UserContext = createContext<{
   }
   status: 'authenticated' | 'loading' | 'unauthenticated'
   tags: string[]
+  token: string
 }>({
   loginStatus: false,
-  session: null,
+  session: { user: { email: '', image: '', name: '' }, expires: '' },
   userDataFromSession: {
     userData: {
       id: 0,
@@ -31,6 +32,7 @@ export const UserContext = createContext<{
   },
   status: 'loading',
   tags: [],
+  token: '',
 })
 
 export function UserProvider({ children }: { children: ReactNode }) {
@@ -64,6 +66,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         userDataFromSession,
         status,
         tags,
+        token: session ? accessToken : '',
       }}
     >
       {children}

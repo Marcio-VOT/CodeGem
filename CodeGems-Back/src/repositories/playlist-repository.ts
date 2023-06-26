@@ -44,6 +44,7 @@ export async function listPlaylists({
         },
       ],
     },
+    orderBy: { createdAt: { sort: 'desc' } },
   })
 }
 

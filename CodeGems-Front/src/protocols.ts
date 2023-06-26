@@ -13,6 +13,13 @@ export type playlistFilterInputs = {
   tags?: string[]
   level?: LeveLs
 }
+export type playCreateInputs = {
+  tags?: string[]
+  level: LeveLs
+  link: string
+  email: string
+  token: string
+}
 
 type Tag = {
   id: number

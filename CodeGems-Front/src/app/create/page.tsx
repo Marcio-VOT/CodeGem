@@ -5,6 +5,10 @@ import {
   Button,
   Chip,
   Divider,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Input,
   Modal,
   ModalBody,
@@ -15,19 +19,32 @@ import {
 } from '@nextui-org/react'
 import { UserContext } from '@/contexts/userContext'
 import { useRouter } from 'next/navigation'
+import useCreatePlaylist from '@/hooks/Api/useCreatePlaylist'
+import { LeveLs } from '@/protocols'
 
 export default function Page() {
-  const { userDataFromSession, status } = useContext(UserContext)
+  const { userDataFromSession, status, session, token } =
+    useContext(UserContext)
   const router = useRouter()
   useEffect(() => {
     if (status === 'unauthenticated') router.push('/')
     /* eslint-disable-next-line */
   }, [status])
-
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [url, setUrl] = useState('')
-  const [tagList, setTagList] = useState<string[]>(['next'])
+  const [tagList, setTagList] = useState<string[]>([])
   const [tag, setTag] = useState<string>('')
+  const [level, setLevel] = useState<LeveLs>('JUNIOR')
+  const [disabled, setDisabled] = useState<boolean>(false)
+  const { createPlaylist } = useCreatePlaylist({
+    level,
+    link: url,
+    tags: tagList,
+    email: session?.user?.email || '',
+    token,
+  })
+
+  // console.log(playlist)
   function removeTag(tag: string) {
     setTagList(tagList.filter((tg) => tg !== tag))
   }
@@ -40,6 +57,21 @@ export default function Page() {
     setTag('')
     setTagList([])
     setUrl('')
+    setLevel('JUNIOR')
+    onOpenChange()
+  }
+  function handleCrate() {
+    setDisabled(true)
+    createPlaylist()
+      .then(() => {
+        setTag('')
+        setTagList([])
+        setUrl('')
+        setDisabled(false)
+      })
+      .catch(() => {
+        setDisabled(false)
+      })
   }
   return (
     <>
@@ -57,6 +89,7 @@ export default function Page() {
                 <Divider />
                 <ModalBody>
                   <Input
+                    isDisabled={disabled}
                     isRequired
                     type="url"
                     label="Youtube Playlist URL"
@@ -67,6 +100,7 @@ export default function Page() {
                     className="mt-8"
                   ></Input>
                   <Input
+                    isDisabled={disabled}
                     type="string"
                     label="Tag List"
                     variant="bordered"
@@ -79,7 +113,7 @@ export default function Page() {
                     isClearable
                     labelPlacement="outside"
                     onClear={() => setTag('')}
-                    className="no-scrollbar mt-8 overflow-y-auto"
+                    className="no-scrollbar  my-8 overflow-y-auto"
                     startContent={
                       <>
                         <div className="max-w-1/2 flex overflow-hidden">
@@ -92,12 +126,62 @@ export default function Page() {
                       </>
                     }
                   ></Input>
+                  Level
+                  <Dropdown className="border-2 border-white-300 border-opacity-10 bg-transparent backdrop-blur-3xl">
+                    <DropdownTrigger>
+                      <Button
+                        color="default"
+                        variant="bordered"
+                        className="capitalize"
+                        isDisabled={disabled}
+                      >
+                        {level.toLocaleLowerCase()}
+                      </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu variant="bordered" disabledKeys={[level]}>
+                      <DropdownItem
+                        variant="solid"
+                        className="capitalize"
+                        color="default"
+                        key="JUNIOR"
+                        onClick={() => setLevel('JUNIOR')}
+                      >
+                        junior
+                      </DropdownItem>
+                      <DropdownItem
+                        variant="solid"
+                        className="capitalize"
+                        key="PLENO"
+                        onClick={() => setLevel('PLENO')}
+                      >
+                        pleno
+                      </DropdownItem>
+                      <DropdownItem
+                        variant="solid"
+                        className="capitalize"
+                        key="SENIOR"
+                        onClick={() => setLevel('SENIOR')}
+                      >
+                        senior
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger" size="sm" onPress={handleCancel}>
+                  <Button
+                    color="danger"
+                    size="sm"
+                    onPress={handleCancel}
+                    isDisabled={disabled}
+                  >
                     CANCEL
                   </Button>
-                  <Button color="success" size="sm">
+                  <Button
+                    color="success"
+                    size="sm"
+                    onPress={handleCrate}
+                    isDisabled={disabled}
+                  >
                     CREATE
                   </Button>
                 </ModalFooter>
