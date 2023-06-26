@@ -1,5 +1,5 @@
 import 'express-async-errors'
-import express, { Express } from 'express'
+import express, { Express, Request, Response } from 'express'
 import cors from 'cors'
 import { connectDb, disconnectDB } from './config/prisma'
 import router from './routers/routers'
@@ -16,6 +16,9 @@ app
   .use(express.json())
   .use(cookieParser())
   .use(router)
+  .get('/health', (_req: Request, res: Response) => {
+    return res.status(200).send('OK!')
+  })
   .use(handleApplicationErrors)
 
 export function init(): Promise<Express> {
