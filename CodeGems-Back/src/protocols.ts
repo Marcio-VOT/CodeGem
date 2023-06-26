@@ -1,4 +1,5 @@
 import { LeveLs, UserType } from '@prisma/client'
+import { Request } from 'express'
 
 export type UserInfo = {
   id: string
@@ -44,11 +45,9 @@ export type playlistDeleteData = {
 
 export type playlistCreateData = {
   link: string
-  title: string
-  thumbnail: string
   level: LeveLs
 }
 
 export type AuthenticatedRequest = Request & {
-  userId: number
+  userId?: number
 }

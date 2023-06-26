@@ -27,21 +27,24 @@ export default function PlaylistGrid({
       <div className="relative z-0 h-full min-h-[50.3rem] w-full border-y-4 border-white-100 border-opacity-5 pb-12 drop-shadow-lg backdrop-blur-sm xl:rounded-3xl xl:border-4">
         <div className="flex w-full justify-between px-20 py-2">
           <div></div>
-          <Dropdown>
+          <Dropdown className="border-2 border-white-300 border-opacity-10 bg-transparent backdrop-blur-3xl">
             <DropdownTrigger>
               <Button color="default" variant="ghost" className="capitalize">
                 levels
               </Button>
             </DropdownTrigger>
-            <DropdownMenu>
+            <DropdownMenu variant="bordered">
               <DropdownItem
+                variant="solid"
                 className="capitalize"
+                color="default"
                 key="JUNIOR"
                 onClick={() => setLevel('JUNIOR')}
               >
                 junior
               </DropdownItem>
               <DropdownItem
+                variant="solid"
                 className="capitalize"
                 key="PLENO"
                 onClick={() => setLevel('PLENO')}
@@ -49,6 +52,7 @@ export default function PlaylistGrid({
                 pleno
               </DropdownItem>
               <DropdownItem
+                variant="solid"
                 className="capitalize"
                 key="SENIOR"
                 onClick={() => setLevel('SENIOR')}
@@ -56,6 +60,7 @@ export default function PlaylistGrid({
                 senior
               </DropdownItem>
               <DropdownItem
+                variant="solid"
                 className="capitalize"
                 color="danger"
                 key="LEVELS"

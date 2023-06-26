@@ -1,9 +1,10 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import httpStatus from 'http-status'
 import * as userServices from '@/services/user-services'
+import { AuthenticatedRequest } from '@/protocols'
 
 export async function userDataFromId(
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction,
 ) {

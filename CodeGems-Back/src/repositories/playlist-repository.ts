@@ -68,7 +68,7 @@ export async function createPlaylist({
   thumbnail,
   title,
   userId,
-}: playlistCreateData & { userId: number }) {
+}: playlistCreateData & { userId: number; thumbnail: string; title: string }) {
   return prisma.playList.create({
     data: {
       grade: 0,

@@ -1,21 +1,23 @@
 import {
+  AuthenticatedRequest,
   playlistCreateData,
   playlistDeleteData,
   playlistFilterInputs,
   userData,
 } from '@/protocols'
 import { LeveLs, UserType } from '@prisma/client'
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import httpStatus from 'http-status'
 import * as playlistServices from '@/services/playlist-services'
 
 export async function listPlaylists(
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction,
 ) {
   const searchData = req.query as playlistFilterInputs
   try {
+    console.log(searchData)
     const result = await playlistServices.listPlaylists(searchData)
     return res.status(httpStatus.OK).send(result)
   } catch (e) {
@@ -24,7 +26,7 @@ export async function listPlaylists(
 }
 
 export async function deletePlaylist(
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction,
 ) {
@@ -41,16 +43,17 @@ export async function deletePlaylist(
 }
 
 export async function createPlaylist(
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction,
 ) {
-  const createInfo = req.body as playlistCreateData & userData
+  const createInfo = req.body as playlistCreateData
+  const { userId } = req as { userId: number }
   try {
     const result = await playlistServices.createPlaylist({
       ...createInfo,
-      userType: createInfo.userType.toUpperCase() as UserType,
       level: createInfo.level.toUpperCase() as LeveLs,
+      userId,
     })
     return res.status(httpStatus.CREATED).send(result)
   } catch (e) {

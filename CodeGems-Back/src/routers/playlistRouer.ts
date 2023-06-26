@@ -3,14 +3,16 @@ import {
   deletePlaylist,
   listPlaylists,
 } from '@/controllers/playlist-controller'
-import { validateBody } from '@/middlewares/validation-middleware'
+import { authenticateToken } from '@/middlewares/authentication-middleware'
+import { validateQuery } from '@/middlewares/validation-middleware'
 import { searchPlaylistSchema } from '@/schemas/playlist-schemas'
 import { Router } from 'express'
 
 const playlistRouter = Router()
 
 playlistRouter
-  .get('', validateBody(searchPlaylistSchema), listPlaylists)
+  .get('', validateQuery(searchPlaylistSchema), listPlaylists)
+  .all('*', authenticateToken)
   .post('', createPlaylist)
   .delete('', deletePlaylist)
 

@@ -15,7 +15,7 @@ export default function Page() {
   const { userData, userErro, loadingUser } = useUserFromApi(userId)
   const [level, setLevel] = useState<LeveLs | undefined>(undefined)
   const { playlists } = usePlaylists({
-    userId: Number(userId),
+    userId,
     level,
   })
   useEffect(() => {

@@ -1,12 +1,12 @@
 import { unauthorizedError } from '@/errors/unauthorized-error'
 import { testToken } from '@/helpers/testToken'
+import { validatePlaylist } from '@/helpers/validatePlaylist'
 import {
   playlistCreateData,
   playlistDeleteData,
   playlistFilterInputs,
   userData,
 } from '@/protocols'
-import authRepository from '@/repositories/authentication-repository'
 import * as playlistRepositories from '@/repositories/playlist-repository'
 
 export async function listPlaylists({
@@ -42,27 +42,19 @@ export async function deletePlaylist({
 }
 
 export async function createPlaylist({
-  token,
-  userType,
-  email,
   level,
   link,
-  thumbnail,
-  title,
-}: playlistCreateData & userData) {
-  if (token === undefined || !token || !email) throw unauthorizedError()
-
-  const tokenEmail = await testToken({ token, userType })
-
-  if (email !== tokenEmail) throw unauthorizedError()
-
-  const { id } = await authRepository.getUser({ email, userType })
+  userId,
+}: playlistCreateData & { userId: number }) {
+  const {
+    items: [{ snippet }],
+  } = await validatePlaylist(link)
 
   return await playlistRepositories.createPlaylist({
-    userId: id,
+    userId,
     level,
     link,
-    thumbnail,
-    title,
+    thumbnail: snippet.thumbnails.maxres.url,
+    title: snippet.title,
   })
 }

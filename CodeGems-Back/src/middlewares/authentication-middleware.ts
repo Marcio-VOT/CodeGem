@@ -10,27 +10,42 @@ export async function authenticateToken(
   req: AuthenticatedRequest,
   res: Response,
   next: NextFunction,
-) {
-  const { token, userType } = req.body as unknown as {
+): Promise<Response<any, Record<string, any>> | undefined> {
+  const {
+    token,
+    userType,
+    email: frontEmail,
+  } = req.body as unknown as {
     token?: string
     userType?: string
+    email?: string
   }
 
-  if (!token || !userType) return generateUnauthorizedResponse(res)
+  if (!token || !userType || !frontEmail)
+    return generateUnauthorizedResponse(res)
 
   try {
-    await testToken({ token, userType: userType.toUpperCase() as UserType })
-    const user = await prisma.user.findFirst()
+    const email = await testToken({
+      token,
+      userType: userType.toUpperCase() as UserType,
+    })
+    if (email !== frontEmail) return generateUnauthorizedResponse(res)
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email_userType: { email, userType: userType.toUpperCase() as UserType },
+      },
+    })
 
     if (!user) return generateUnauthorizedResponse(res)
 
     req.userId = user.id
-    return next()
+    next()
   } catch (error) {
-    return generateUnauthorizedResponse(res)
+    return res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError())
   }
 }
 
 function generateUnauthorizedResponse(res: Response) {
-  res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError())
+  return res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError())
 }

@@ -29,12 +29,9 @@ function validate(schema: ObjectSchema, type: 'body' | 'params' | 'query') {
     const { error } = schema.validate(req[type], {
       abortEarly: false,
     })
-
     if (!error) {
       next()
     } else {
-      console.log(1)
-
       const details: string[] = error.details.map((d) => d.message)
       throw invalidDataError(details)
     }

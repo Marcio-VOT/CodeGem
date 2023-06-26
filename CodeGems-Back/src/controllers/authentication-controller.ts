@@ -1,12 +1,12 @@
 // import authenticationService from '@/services/authentication-services'
-import { UserData, UserInfo } from '@/protocols'
+import { AuthenticatedRequest, UserData, UserInfo } from '@/protocols'
 import authenticationService from '@/services/authentication-services'
 import { UserType } from '@prisma/client'
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import httpStatus from 'http-status'
 
 export async function singInPost(
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction,
 ) {
@@ -16,7 +16,8 @@ export async function singInPost(
   } = req.body as UserData<UserInfo>
 
   try {
-    console.log(user, token, userType)
+    console.log(user, 'aaa')
+    console.log(token)
     await authenticationService.upsertUser({
       token,
       userType: userType.toUpperCase() as UserType,
