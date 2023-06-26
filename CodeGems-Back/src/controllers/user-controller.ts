@@ -17,3 +17,18 @@ export async function userDataFromId(
     next(e)
   }
 }
+
+export async function userDataFromSession(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) {
+  const { userId } = req as { userId: number }
+
+  try {
+    const userData = await userServices.userDataFromId(Number(userId))
+    res.status(httpStatus.OK).send(userData)
+  } catch (e) {
+    next(e)
+  }
+}

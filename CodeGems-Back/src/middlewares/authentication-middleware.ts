@@ -21,19 +21,24 @@ export async function authenticateToken(
     email?: string
   }
 
-  if (!token || !userType || !frontEmail)
-    return generateUnauthorizedResponse(res)
+  if (!token || !frontEmail) return generateUnauthorizedResponse(res)
 
   try {
+    let userTypeCreated = ''
+    if (!userType)
+      userTypeCreated = token.substring(0, 3) === 'gho' ? 'github' : 'google'
     const email = await testToken({
       token,
-      userType: userType.toUpperCase() as UserType,
+      userType: userTypeCreated.toUpperCase() as UserType,
     })
     if (email !== frontEmail) return generateUnauthorizedResponse(res)
 
     const user = await prisma.user.findUnique({
       where: {
-        email_userType: { email, userType: userType.toUpperCase() as UserType },
+        email_userType: {
+          email,
+          userType: userTypeCreated.toUpperCase() as UserType,
+        },
       },
     })
 

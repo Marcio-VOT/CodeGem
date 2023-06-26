@@ -12,6 +12,7 @@ import {
   Spacer,
   CardFooter,
 } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 
 export default function Dropdown({
   userIcon,
@@ -24,6 +25,7 @@ export default function Dropdown({
   userEmail: string
   loginStatus: boolean
 }) {
+  const router = useRouter()
   return (
     <>
       <Card className="absolute -right-4 top-full z-10 mt-2 w-screen border-2 border-white-100 border-opacity-5 drop-shadow-lg sm:right-0 sm:w-[22rem] sm:rounded-lg">
@@ -59,7 +61,7 @@ export default function Dropdown({
           <Spacer x={0.5} />
           <Button
             isDisabled={!loginStatus}
-            onPress={() => console.log('a')}
+            onPress={() => router.push('/create')}
             variant="ghost"
             color="success"
             startContent={<MdPlaylistAdd size={25} />}

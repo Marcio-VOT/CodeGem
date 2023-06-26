@@ -78,5 +78,36 @@ export async function createPlaylist({
       title,
       userId,
     },
+    // include: {
+    //   PlayLstTags: {
+    //     select: {
+    //       Tag: {
+    //         select: {
+    //           tag: true,
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
   })
+}
+
+export async function createPlaylistTags({
+  playlist,
+  tags,
+}: {
+  playlist: PlayList
+  tags: string[]
+}) {
+  const tagList = await getTagsIds()
+  const usedTags = tagList.filter((t) => tags.indexOf(t.tag) !== -1)
+  await prisma.playLstTags.createMany({
+    data: usedTags.map((t) => {
+      return { playlistId: playlist.id, tagId: t.id }
+    }),
+  })
+}
+
+async function getTagsIds() {
+  return await prisma.tag.findMany()
 }

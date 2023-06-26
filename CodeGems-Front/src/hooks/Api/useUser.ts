@@ -1,9 +1,9 @@
 import useAsync from '../useAsync'
 import { useCallback } from 'react'
-import { getUser } from '@/services/usersApi'
+import { getUser, getUserFromSession } from '@/services/usersApi'
 import { UserFromApi } from '@/protocols'
 
-export default function useUserFromApi(userId: number): {
+export function useUserFromApi(userId: number): {
   userData: UserFromApi
   userErro: Error | null
   loadingUser: boolean
@@ -14,6 +14,34 @@ export default function useUserFromApi(userId: number): {
     loading: loadingUser,
   } = useAsync(
     useCallback(() => getUser(userId), [userId]),
+    true,
+  )
+
+  return { userData, userErro, loadingUser }
+}
+
+export function useUserFromSession({
+  token,
+  email,
+  userType,
+}: {
+  token: string
+  userType?: string
+  email: string
+}): {
+  userData: UserFromApi
+  userErro: Error | null
+  loadingUser: boolean
+} {
+  const {
+    data: userData,
+    error: userErro,
+    loading: loadingUser,
+  } = useAsync(
+    useCallback(
+      () => getUserFromSession({ token, email, userType }),
+      [token, email, userType],
+    ),
     true,
   )
 

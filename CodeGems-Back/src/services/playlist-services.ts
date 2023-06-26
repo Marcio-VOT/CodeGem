@@ -45,16 +45,21 @@ export async function createPlaylist({
   level,
   link,
   userId,
-}: playlistCreateData & { userId: number }) {
+  tags,
+}: playlistCreateData & { userId: number; tags: string[] }) {
   const {
     items: [{ snippet }],
   } = await validatePlaylist(link)
 
-  return await playlistRepositories.createPlaylist({
+  const playlist = await playlistRepositories.createPlaylist({
     userId,
     level,
     link,
     thumbnail: snippet.thumbnails.maxres.url,
     title: snippet.title,
   })
+
+  await playlistRepositories.createPlaylistTags({ playlist, tags })
+
+  return playlist
 }

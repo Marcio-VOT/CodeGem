@@ -2,7 +2,7 @@
 
 import PlaylistGrid from '@/components/PlaylistGrid/PlaylistGrid'
 import usePlaylists from '@/hooks/Api/usePlaylists'
-import useUserFromApi from '@/hooks/Api/useUser'
+import { useUserFromApi } from '@/hooks/Api/useUser'
 import { LeveLs, UserFromApi } from '@/protocols'
 import { Card, CardHeader, Chip, Divider, Skeleton } from '@nextui-org/react'
 import Image from 'next/image'
@@ -30,7 +30,13 @@ export default function Page() {
   )
 }
 
-function UserCard({ user, mock }: { user: UserFromApi; mock?: boolean }) {
+export function UserCard({
+  user,
+  mock,
+}: {
+  user: UserFromApi
+  mock?: boolean
+}) {
   return (
     <>
       <Card
@@ -67,7 +73,7 @@ function UserCard({ user, mock }: { user: UserFromApi; mock?: boolean }) {
             ))}
           </div>
         ) : (
-          <div>a</div>
+          <div></div>
         )}
         {/* <Divider className="h-[2px]" /> */}
       </Card>

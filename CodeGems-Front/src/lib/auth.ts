@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { NextAuthOptions, Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
@@ -46,14 +47,19 @@ export const authConfig: NextAuthOptions = {
       session,
       user,
       token,
-    }): Promise<Session & { accessToken: string }> {
-      return { ...session, accessToken: token.accessToken as string }
+    }): Promise<Session & { accessToken: string; provider: string }> {
+      return {
+        ...session,
+        accessToken: token.accessToken as string,
+        provider: token.provider as string,
+      }
     },
     async jwt({ token, account, profile }) {
       if (account) {
+        token.provider = account.provider
         token.accessToken = account.access_token
       }
-      return token
+      return token as JWT & { provider: string; accessToken: string }
     },
   },
 }

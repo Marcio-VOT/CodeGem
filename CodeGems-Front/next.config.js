@@ -10,7 +10,7 @@ const nextConfig = {
 
     // BACKEND_URL: 'http://localhost:8080/node',
     // BACKEND_URL_NEXT_API: 'http://node:5000',
-    BACKEND_URL: 'https://codegem-api.onrender.com',
+    BACKEND_URL: 'http://localhost:5000',
   },
   images: {
     remotePatterns: [

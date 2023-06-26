@@ -47,11 +47,12 @@ export async function createPlaylist(
   res: Response,
   next: NextFunction,
 ) {
-  const createInfo = req.body as playlistCreateData
+  const createInfo = req.body as playlistCreateData & { tags: string[] }
   const { userId } = req as { userId: number }
   try {
     const result = await playlistServices.createPlaylist({
       ...createInfo,
+      tags: createInfo.tags || [],
       level: createInfo.level.toUpperCase() as LeveLs,
       userId,
     })
