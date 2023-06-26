@@ -12,7 +12,7 @@
     "seed": "prisma db seed",
     "migration:run": "prisma migrate deploy",
     "reset": "prisma migrate reset",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
