@@ -10,9 +10,8 @@ beforeAll(async () => {
 const server = supertest(app)
 
 test('should respond with status 200 with OK! text', async () => {
-  console.log(process.env.TYPE)
   const response = await server.get('/health')
 
   expect(response.status).toBe(httpStatus.OK)
-  expect(response.text).toBe('OK!A')
+  expect(response.text).toBe('OK!')
 })

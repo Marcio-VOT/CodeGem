@@ -17,8 +17,7 @@ app
   .use(cookieParser())
   .use(router)
   .get('/health', (_req: Request, res: Response) => {
-    console.log(process.env.TYPE)
-    return res.status(200).send(process.env.TYPE)
+    return res.status(200).send('OK!')
   })
   .use(handleApplicationErrors)
 
