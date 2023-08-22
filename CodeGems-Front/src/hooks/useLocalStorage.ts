@@ -17,7 +17,8 @@ export default function useLocalStorage(key: string, initialValue: unknown) {
         value instanceof Function ? value(storedValue) : value
       setStoredValue(valueToStore)
       localStorage.setItem(key, JSON.stringify(valueToStore))
-    } catch (error) {}
+      // eslint-disable-next-line prettier/prettier
+    } catch (error) { }
   }
 
   return { storedValue, setValue }
